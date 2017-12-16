@@ -1,66 +1,137 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 import sys
 import os
 import pygame 
 import math 
 import pyganim
-from Player import *
+from Player import *#импорт библеотек 
+from bot import *
 
-size=(1200,700)
-screen = pygame.display.set_mode(size)
+size=(1200,700)#размер окна 
+screen = pygame.display.set_mode(size)#создание окна
 
 pygame.init()
 clock = pygame.time.Clock()
      
 done=False
-bg=pygame.image.load('grees.png').convert()	
-Player0=Player(screen,500,200)
+bgmap=pygame.image.load('map.png').convert()#приграды карты
+bg=pygame.image.load('grees.png').convert()#карта	
+Player0=Player(screen,1080,125,bgmap)
+Bot0=Bot(screen,225,500,bgmap)
 
 JOY_EXIST=False
 SPEED=3
-#screen.fill((0,255,0))
-#screen.blit(bg,(0,0))
-#pygame.display.flip()
 
 if  pygame.joystick.get_count()!=0:
     joy0 = pygame.joystick.Joystick(0)
     joy0.init()
     cb=joy0.get_numbuttons()
-    #print cb
     JOY_EXIST= True 
 else:	
     print "Connect joystick!"
-#	pygame.quit()
-#	sys.exit()
 x=y=0
 
 while done==False:
-    #x=y=0
-    #print bg.get_at((int(Player0.x),int(Player0.y))) 
-    for event in pygame.event.get():
+    for event in pygame.event.get():#оброботка событей
         if event.type == pygame.QUIT:
                     done=True
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
+        if event.type == pygame.KEYDOWN:#оброботка событей когда клавиша опущена
+            if event.key == pygame.K_LEFT:#клавиша в низ
                 print "LEFT"
-                x=-1
-                Player0.stopAll()
-                Player0.PlayerStartFlyLeft.play()
-                Player0.State='StartLeftFly'
-            if event.key == pygame.K_RIGHT:
-                x=1
+                x=-1#двежение влево
+                Player0.StartLeftFly.play()#анимация влево
+                print "DSLF"
+                Player0.State='StartLeftFly'#состояние игрока
+            if event.key == pygame.K_b:#клавиша b (атака)
+                Player0.stopAll()#остновка всех анимаций
+                if  Player0.State=='LeftStay':#cостояние игрока
+                    Player0.FireLeft.play()#проигравание анимаций
+                    print Player0.State
+                    Player0.State='FireLeft'#состояние игрока
+                if  Player0.State=='RightStay':#состояние игрока
+                    Player0.FireRight.play()#проигрование анимаций
+                    print "DFR"
+                    print Player0.State
+                    Player0.State='FireRight'#состояние игрока
+                    
+            if event.key == pygame.K_RIGHT:#клавиша вправо
+                x=1#двежение вправо
+                Player0.stopAll()#остновка всех анимаций
+                Player0.StartRightFly.play()
+                print "DSRF"
+                Player0.State='StartRightFly'
+                print Player0.State
             if event.key == pygame.K_UP:
+                if Player0.State.find('Left')!=-1:
+                    Player0.stopAll()#остновка всех анимаций
+                    Player0.StartLeftFly.play()
+                    print "DSLFUP"
+                    Player0.State='StartLeftFly'
+                if Player0.State.find('Right')!=-1:
+                    Player0.stopAll()#остновка всех анимаций
+                    Player0.StartRightFly.play()
+                    print "DSRFUP"
+                    Player0.State='StartRightFly'
                 y=-1
             if event.key == pygame.K_DOWN:
+                if Player0.State.find('Left')!=-1:
+                    Player0.stopAll()#остновка всех анимаций
+                    Player0.StartLeftFly.play()
+                    print "DSLFDOWN"
+                    Player0.State='StartLeftFly'
+                if Player0.State.find('Right')!=-1:
+                    Player0.stopAll()#остновка всех анимаций
+                    Player0.StartRightFly.play()
+                    print "DSRFDOWN"
+                    Player0.State='StartRightFly'
                 y=1
+
         if event.type == pygame.KEYUP:
 
-            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+            if event.key == pygame.K_LEFT:
                 x=0
-                Player0.stopAll()
-                Player0.PlayerStopFlyLeft.play()
-                Player0.State='StopLeftFly'
+                if y==0:
+                    
+                    Player0.stopAll()#остновка всех анимаций
+                    Player0.StopLeftFly.play()
+                    Player0.State='StopLeftFly'
+                    print "UPSLF"
+            if event.key == pygame.K_b:
+                Player0.stopAll()#остновка всех анимаций
+                if Player0.State=='FireLeft':
+                    Player0.StayLeft.play()
+                    Player0.State='StayLeft'
+                if Player0.State=='FireRight':
+                    Player0.StayRight.play()
+                    Player0.State='StayRight'
+                    
+
+
+                
+            if event.key == pygame.K_RIGHT:
+                x=0
+                if y==0:
+                
+                    Player0.stopAll()#остновка всех анимаций
+                    Player0.StopRightFly.play()
+                    Player0.State='StopRightFly'
+                    print "UPSRF"
             if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                 y=0
+                if x==0:
+                
+                    if Player0.State.find('Left')!=-1:
+                        Player0.stopAll()#остновка всех анимаций
+                        Player0.StopLeftFly.play()
+                        print "UPSLF"
+                        Player0.State='StopLeftFly'
+                    if Player0.State.find('Right')!=-1:
+                        Player0.stopAll()#остновка всех анимаций
+                        Player0.StopRightFly.play()
+                        print "UPSRF"
+                        Player0.State='StopRightFly'
+
     if JOY_EXIST:
         x=joy0.get_axis(0)
         y=joy0.get_axis(1)
@@ -69,23 +140,28 @@ while done==False:
         Player0.x+=math.copysign(SPEED,x)
     if abs(y)>0.5:
         Player0.y+=math.copysign(SPEED,y)
-    #print Player0.PlayerStartFlyLeft._state,Player0.PlayerStartFlyLeft._loop,  Player0.StartFlyLeft
-    if (Player0.PlayerStartFlyLeft.isFinished()==True) and (Player0.State=='StartLeftFly'):
-        Player0.stopAll()
-        Player0.PlayerFlyLeft.play()
+
+    if (Player0.StartLeftFly.isFinished()==True) and (Player0.State=='StartLeftFly'):
+        Player0.stopAll()#остновка всех анимаций
+        Player0.LeftFly.play()
         Player0.State='LeftFly'
-    if (Player0.PlayerStopFlyLeft.isFinished()==True) and (Player0.State=='StopLeftFly'):
-            Player0.stopAll()
-            Player0.PlayerStay.play()
-            Player0.State="LeftStay"
+    if (Player0.StopLeftFly.isFinished()==True) and (Player0.State=='StopLeftFly'):
+        Player0.stopAll()#остновка всех анимаций
+        Player0.StayLeft.play()
+        Player0.State="LeftStay"
+
+    if (Player0.StartRightFly.isFinished()==True) and (Player0.State=='StartRightFly'):
+        Player0.stopAll()#остновка всех анимаций
+        Player0.RightFly.play()
+        Player0.State='RightFly'
+    if (Player0.StopRightFly.isFinished()==True) and (Player0.State=='StopRightFly'):
+        Player0.stopAll()#остновка всех анимаций
+        Player0.StayRight.play()
+        Player0.State="RightStay"
 
     screen.blit(bg,(0,0))
-   # screen.blit(Player0.Surface,(Player0.x,Player0.y))
+    Bot0.SkeletStay.blit(screen,(225,400))
     Player0.draw(Player0.x,Player0.y)
     pygame.display.flip()
-#	for i in range(cb):
-#		print str(i)+" "+str(joy0.get_button(i))
-#	print joy0.get_axis(0),joy0.get_axis(1), joy0.get_axis(2), joy0.get_axis(3)
     clock.tick(60)
-bg.fill((0,255,0))
-
+    

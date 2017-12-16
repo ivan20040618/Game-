@@ -11,28 +11,26 @@ import time
 pygame.init()
 
 # set up the window
-screen = pygame.display.set_mode((320, 240), 0, 32)
+screen = pygame.display.set_mode((720, 480), 0, 32)
 pygame.display.set_caption('Sprite Sheet Demo')
 
 # create the animation objects
-rects = [(  39, 1635, 135, 120),
-         (165, 1635, 135, 120),        
-         (312, 1635, 140, 120),
-         (468, 1635, 190, 110),
-        # (482, 1635, 115, 116),
-        # (593, 1635, 115, 116),
-        # (703, 1635, 115, 116),
-        # (816, 1635, 115, 116),
-#
-        ]
+rects = [(0, 0, 90, 125),
+        (101, 0, 90, 145),        
+        (210, 0, 92, 150),
+        (325, 0, 94, 153),
+      #  (620, 0, 94, 87),
+       # (758, 0, 88, 149),
+        #(1780, 0, 117, 155),
+       # (1917, 0, 90, 145),
+]
 
-allImages = pyganim.getImagesFromSpriteSheet('AD1.png', rects=rects)
+allImages = pyganim.getImagesFromSpriteSheet('skelet.png', rects=rects)
 frames = list(zip(allImages, [100] * len(allImages)))
 
-dinoAnim = pyganim.PygAnimation(frames,loop=False)
+dinoAnim = pyganim.PygAnimation(frames,loop=True)
 
 #time.sleep(1)
- 
 dinoAnim.play() # there is also a pause=() and stop() method
 
 mainClock = pygame.time.Clock()
