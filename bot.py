@@ -1,5 +1,6 @@
-import pygame 
+# -*- coding: utf-8 -*-
 import pyganim 
+import pygame 
 
 class Bot:
     def __init__(self,screen,x,y,bgmap):
@@ -29,7 +30,9 @@ class Bot:
         allImages = pyganim.getImagesFromSpriteSheet('skelet.png', rects=rects)
         frames = list(zip(allImages, [100] * len(allImages)))
         self.SkeletStay = pyganim.PygAnimation(frames,loop=True)
-        self.SkeletStay.play()  
-    
-
-
+        self.SkeletStay.play()     
+        
+    def enemy(self,x,y,bgmap):
+        #self.SkeletDie.blit(self.screen,(x,y))
+        self.SkeletStay.blit(self.screen,(x,y))
+        pygame.draw.rect(bgmap,(255,0,0),(x,y,100,120))

@@ -21,7 +21,7 @@ Player0=Player(screen,1080,125,bgmap)
 Bot0=Bot(screen,225,500,bgmap)
 
 JOY_EXIST=False
-SPEED=3
+SPEED=5
 
 if  pygame.joystick.get_count()!=0:
     joy0 = pygame.joystick.Joystick(0)
@@ -160,7 +160,9 @@ while done==False:
         Player0.State="RightStay"
 
     screen.blit(bg,(0,0))
-    Bot0.SkeletStay.blit(screen,(225,400))
+    #Bot0.SkeletStay.blit(screen,(225,400))
+    Bot0.enemy(225,400,bgmap)
+    #pygame.draw.rect(bg,(255,0,0),(245,400,80,120))
     Player0.draw(Player0.x,Player0.y)
     pygame.display.flip()
     clock.tick(60)
