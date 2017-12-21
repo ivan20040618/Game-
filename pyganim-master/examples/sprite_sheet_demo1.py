@@ -15,12 +15,14 @@ screen = pygame.display.set_mode((320, 240), 0, 32)
 pygame.display.set_caption('Sprite Sheet Demo')
 
 # create the animation objects
-rects = [(  676, 1635, 206, 117),
-         (896, 1635, 205, 89),        
-         (1112, 1635, 202, 90),
-         (1329,1635, 195, 113),]
+rects = [(23,945, 95, 132),
+        (150, 945, 95, 125),        
+        (307, 945, 55, 136),
+        (464, 945, 155, 135),
+        (620, 945, 94, 87),
+        (758, 945, 88, 149),]
 
-allImages = pyganim.getImagesFromSpriteSheet('AD1.png', rects=rects)
+allImages = pyganim.getImagesFromSpriteSheet('skelet.png', rects=rects)
 frames = list(zip(allImages, [100] * len(allImages)))
 
 dinoAnim = pyganim.PygAnimation(frames,loop=True)

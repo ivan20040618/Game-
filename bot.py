@@ -22,13 +22,14 @@ class Bot:
         self.SkeletDie= pyganim.PygAnimation(frames)
         #self.SkeletDie.play()
         
-        rects = [(0, 0, 90, 125),
-                (101, 0, 90, 145),        
-                (210, 0, 92, 150),
-                (325, 0, 94, 153),]
+        rects = [(0, 0, 94, 125),
+                (101, 0, 94, 145),        
+                (213, 0, 94, 150),
+                (335, 0, 94, 153),
+                                    ]
 
         allImages = pyganim.getImagesFromSpriteSheet('skelet.png', rects=rects)
-        frames = list(zip(allImages, [100] * len(allImages)))
+        frames = list(zip(allImages, [600] * len(allImages)))
         self.SkeletStay = pyganim.PygAnimation(frames,loop=True)
         self.SkeletStay.play()     
         

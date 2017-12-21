@@ -43,19 +43,20 @@ class Player:
         frames = list(zip(allImages, [100] * len(allImages)))
 
   
-        allImages = pyganim.getImagesFromSpriteSheet('AD1.png', rects=rects)
+        allImages = pyganim.getImagesFromSpriteSheet('AD.png', rects=rects)
         frames = list(zip(allImages,[100] * len(allImages)))
         self.FireRight = pyganim.PygAnimation(frames)
         self.FireRight.blit(self.screen,(x,y))  
-
-        rects = [(38,1200,243,133,),
-                 (293,1200,260,135,),
-                 (576,1200,250,110,),
+        rects = [(38,1250,256,160,),
+                 (293,1250,260,160,),
+                 (576,1250,250,160,),
                                      ]
 
 
-        allImages = pyganim.getImagesFromSpriteSheet('ADR.png', rects=rects)
-        frames = list(zip(allImages,[100] * len(allImages)))
+
+
+        allImages = pyganim.getImagesFromSpriteSheet('AD.png', rects=rects)
+        frames = list(zip(allImages,[150] * len(allImages)))
         self.FireLeft = pyganim.PygAnimation(frames)
         self.FireLeft.blit(self.screen,(x,y))  
 
