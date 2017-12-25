@@ -38,12 +38,12 @@ class Bot:
         
     def enemy(self,x,y,bgmap):
         if self.NoDie==1:
-            pygame.draw.rect(bgmap,(255,0,0),(x,y,self.width,self.height))
+            pygame.draw.rect(bgmap,(255,0,0),(x+15,y+25,self.width-15,self.height-20))
         if self.NoDie==0:
-            #print "DIE"
+            
             self.SkeletStay.stop()
             self.SkeletDie.play()
-            pygame.draw.rect(bgmap,(255,255,255),(x,y,self.width,self.height))
+            pygame.draw.rect(bgmap,(255,255,255),(x+15,y+25,self.width-15,self.height-20))
             #self.SkeletDie.blit(self.screen,(x,y))
             self.NoDie=2
 
@@ -51,4 +51,4 @@ class Bot:
             self.SkeletDie.blit(self.screen,(x,y))
         if self.SkeletStay.isFinished()==False:
             self.SkeletStay.blit(self.screen,(x,y))
-        #print self.NoDie,"#########"
+        

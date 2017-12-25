@@ -37,15 +37,9 @@ class Player:
         allImages = pyganim.getImagesFromSpriteSheet('AD1.png', rects=rects)
         frames = list(zip(allImages, [100] * len(allImages)))
 
-
-        #rects = [(1917,1225, 90, 145)]
-        #allImages = pyganim.getImagesFromSpriteSheet('AD1.png', rects=rects)
-        #frames = list(zip(allImages, [100] * len(allImages)))
-
         rects = [(1940,1250,260,160,),
                 (1650,1250,260,160,),
                 (1383,1250,260,160,)]
-
 
         allImages = pyganim.getImagesFromSpriteSheet('ADR.png', rects=rects)
         frames = list(zip(allImages,[100] * len(allImages)))
@@ -55,17 +49,10 @@ class Player:
                 (302,1210,260,160,),
                 (569,1210,260,160,)]
 
-
-
         allImages = pyganim.getImagesFromSpriteSheet('AD.png', rects=rects)
         frames = list(zip(allImages,[150] * len(allImages)))
         self.FireRight = pyganim.PygAnimation(frames)
         self.FireRight.blit(self.screen,(x,y))  
-
-        #rects = [(1940,1200,256,160,),
-         #       (1647,1200,260,160,),
-         #       (1410,1200,250,160,),]
-
 
         allImages = pyganim.getImagesFromSpriteSheet('ADR.png', rects=rects)
         frames = list(zip(allImages, [100] * len(allImages)))
@@ -181,19 +168,34 @@ class Player:
             y=self.oldy
             self.x=self.oldx
             self.y=self.oldy
-        self.StayLeft.blit(self.screen, (x,y))
-        self.StayRight.blit(self.screen, (x,y))
-        self.LeftFly.blit(self.screen,(x,y))
-        self.StartLeftFly.blit(self.screen,(x,y))
-        self.StopLeftFly.blit(self.screen,(x,y))
-	self.StartRightFly.blit(self.screen,(x,y))
-	self.RightFly.blit(self.screen,(x,y))
-	self.StopRightFly.blit(self.screen,(x,y))
-        self.FireLeft.blit(self.screen,(x-75,y))
-        self.FireRight.blit(self.screen,(x-75,y-40))
+        if not self.StayLeft.isFinished():
+            self.StayLeft.blit(self.screen, (x,y))
+        if not self.StayRight.isFinished():
+            self.StayRight.blit(self.screen, (x,y))
+        if not self.LeftFly.isFinished():
+            self.LeftFly.blit(self.screen,(x,y))
+        if not self.StartLeftFly.isFinished():
+            self.StartLeftFly.blit(self.screen,(x,y))
+        if not self.StopLeftFly.isFinished():
+            self.StopLeftFly.blit(self.screen,(x,y))
+        if not self.StartRightFly.isFinished():
+	    self.StartRightFly.blit(self.screen,(x,y))
+        if not self.RightFly.isFinished():
+	    self.RightFly.blit(self.screen,(x,y))
+        if not self.StopRightFly.isFinished():
+	    self.StopRightFly.blit(self.screen,(x,y))
+        if not self.FireLeft.isFinished():
+            self.FireLeft.blit(self.screen,(x-75,y))
+        if not self.FireRight.isFinished():
+            self.FireRight.blit(self.screen,(x-75,y-40))
         self.oldx=self.x=x
         self.oldy=self.y=y
-        self.Rect=pygame.Rect(x-5,y-5,125,125)
+        if self.State.find('Right')!=-1:
+            self.Rect=pygame.Rect(x+60,y+70,50,30)
+        if self.State.find('Left')!=-1:
+            self.Rect=pygame.Rect(x-15,y+70,45,30)
+
+
     def stopAll(self):
         if self.StayLeft._state!=pyganim.STOPPED:
             self.StayLeft.stop()
