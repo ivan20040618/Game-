@@ -19,7 +19,7 @@ class Player:
         (703, 18, 115, 116),
         (816, 18, 115, 116),]
         
-        self.State="RightStay"
+        self.State="StayRight"
         allImages = pyganim.getImagesFromSpriteSheet('AD.png', rects=rects)
         frames = list(zip(allImages, [100] * len(allImages)))
         self.StayRight= pyganim.PygAnimation(frames)

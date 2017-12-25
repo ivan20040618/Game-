@@ -52,7 +52,7 @@ while done==False:
                     Player0.State='FireRight'#состояние игрока
                     Player0.FireRight.play()#проигравание анимаций
                     print Player0.State
-                if  Player0.State=='LeftStay':#состояние игрока
+                if  Player0.State=='StayLeft':#состояние игрока
                     Player0.State='FireLeft'#состояние игрока
                     Player0.FireLeft.play()#проигрование анимаций
                     print "DFR"
@@ -156,7 +156,7 @@ while done==False:
     if (Player0.StopLeftFly.isFinished()==True) and (Player0.State=='StopLeftFly'):
         Player0.stopAll()#остновка всех анимаций
         Player0.StayLeft.play()
-        Player0.State="LeftStay"
+        Player0.State="StayLeft"
 
     if (Player0.StartRightFly.isFinished()==True) and (Player0.State=='StartRightFly'):
         Player0.stopAll()#остновка всех анимаций
