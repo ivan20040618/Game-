@@ -4,6 +4,8 @@ import pyganim
 class Player:
     State=''
     def __init__(self,screen,x,y,bgmap):
+        self.Fire=pygame.mixer.Sound("./ogg/Fire1.ogg")
+        self.Fly=pygame.mixer.Sound("./ogg/Fly3.ogg")
         self.bgmap=bgmap
         self.screen=screen
         self.oldx=x
@@ -136,6 +138,12 @@ class Player:
 
 
     def draw(self,x,y):
+        if self.State.find('Fire')!=-1:
+           self.Fire.play()
+        if self.State.find('Fly')!=-1:
+           self.Fly.play()
+        if self.State.find('Fly')==-1:
+           self.Fly.stop()
         width=100
         height=100
         kx=0

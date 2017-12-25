@@ -6,8 +6,8 @@ class Bot:
     width=100
     height=120
     NoDie=1
-
     def __init__(self,screen,x,y,bgmap):
+        self.Die=pygame.mixer.Sound("./ogg/Die2.ogg")
         self.bgmap=bgmap
         self.screen=screen
         self.oldx=x
@@ -23,7 +23,7 @@ class Bot:
                 (620, 945, 94, 87),
                 (758, 945, 88, 149),]
         allImages = pyganim.getImagesFromSpriteSheet('skelet.png', rects=rects)
-        frames = list(zip(allImages, [100] * len(allImages)))
+        frames = list(zip(allImages, [300] * len(allImages)))
         self.SkeletDie= pyganim.PygAnimation(frames,loop=False)
         
         rects = [(0, 0, 94, 125),
@@ -43,6 +43,7 @@ class Bot:
             
             self.SkeletStay.stop()
             self.SkeletDie.play()
+            self.Die.play()
             pygame.draw.rect(bgmap,(255,255,255),(x+15,y+25,self.width-15,self.height-20))
             #self.SkeletDie.blit(self.screen,(x,y))
             self.NoDie=2

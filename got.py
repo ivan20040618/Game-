@@ -13,7 +13,8 @@ screen = pygame.display.set_mode(size)#создание окна
 
 pygame.init()
 clock = pygame.time.Clock()
-     
+pygame.mixer.music.load('./ogg/background3.ogg')
+pygame.mixer.music.play()
 done=False
 bgmap=pygame.image.load('map.png').convert()#приграды карты
 bg=pygame.image.load('grees.png').convert()#карта	
