@@ -17,8 +17,12 @@ clock = pygame.time.Clock()
 done=False
 bgmap=pygame.image.load('map.png').convert()#приграды карты
 bg=pygame.image.load('grees.png').convert()#карта	
-Player0=Player(screen,1080,125,bgmap)
-Bot0=Bot(screen,225,500,bgmap)
+Player0=Player(screen,445,500,bgmap)#1080,125
+
+Skeleton=[]
+Skeleton.append(Bot(screen,225,500,bgmap))
+Skeleton.append(Bot(screen,540,190,bgmap))
+Skeleton.append(Bot(screen,540,230,bgmap))
 
 JOY_EXIST=False
 SPEED=5
@@ -45,14 +49,21 @@ while done==False:
                 print "DSLF"
                 Player0.State='StartLeftFly'#состояние игрока
             if event.key == pygame.K_b:#клавиша b (атака)
+
+                for i in range(len(Skeleton)):
+                    print Skeleton[i].x,Skeleton[i].y,Player0.x,Player0.y
+                    if Player0.Rect.colliderect(pygame.Rect(Skeleton[i].x,Skeleton[i].y,Skeleton[i].width,Skeleton[i].height)):
+                        print "***********"
+                        Skeleton[i].NoDie=False
+
                 print Player0.State,"if event.key == pygame.K_b"
 
                 Player0.stopAll()#остновка всех анимаций
-                if  Player0.State=='StayRight':#cостояние игрока
+                if  Player0.State.find('Right')!=-1:#cостояние игрока
                     Player0.State='FireRight'#состояние игрока
                     Player0.FireRight.play()#проигравание анимаций
                     print Player0.State
-                if  Player0.State=='StayLeft':#состояние игрока
+                if  Player0.State.find('Left')!=-1:#состояние игрока
                     Player0.State='FireLeft'#состояние игрока
                     Player0.FireLeft.play()#проигрование анимаций
                     print "DFR"
@@ -168,9 +179,8 @@ while done==False:
         Player0.State="StayRight"
 
     screen.blit(bg,(0,0))
-    #Bot0.SkeletStay.blit(screen,(225,400))
-    Bot0.enemy(225,400,bgmap)
-    #pygame.draw.rect(bg,(255,0,0),(245,400,80,120))
+    for i in range(len(Skeleton)):
+        Skeleton[i].enemy(Skeleton[i].x,Skeleton[i].y,bgmap)
     Player0.draw(Player0.x,Player0.y)
     pygame.display.flip()
     clock.tick(60)

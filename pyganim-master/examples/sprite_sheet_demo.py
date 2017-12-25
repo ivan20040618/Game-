@@ -1,4 +1,6 @@
 # trex image from Wyverii on http://opengameart.org/content/unsealed-terrex
+# -*- coding: utf-8 -*-
+
 
 import sys
 import os
@@ -15,15 +17,30 @@ screen = pygame.display.set_mode((720, 480), 0, 32)
 pygame.display.set_caption('Sprite Sheet Demo')
 
 # create the animation objects
+#Если прибавляем, то сдвигается влево
+import sys
+import os
+sys.path.append(os.path.abspath('..'))
+import pygame
+from pygame.locals import *
+import pyganim
+import time
 
-rects = [(1940,1200,256,160,),
-        (1647,1200,260,160,),
-        (1410,1200,250,160,),
-                                     ]
+pygame.init()
+
+# set up the window
+screen = pygame.display.set_mode((720, 480), 0, 32)
+pygame.display.set_caption('Sprite Sheet Demo')
+
+# create the animation objects
+#Если прибавляем, то сдвигается назад
+rects = [(12,1210,260,160,),
+        (302,1210,260,160,),
+        (569,1210,260,160,)]
 
 
-allImages = pyganim.getImagesFromSpriteSheet('ADR.png', rects=rects)
-frames = list(zip(allImages, [300] * len(allImages)))
+allImages = pyganim.getImagesFromSpriteSheet('AD.png', rects=rects)
+frames = list(zip(allImages, [600] * len(allImages)))
 
 dinoAnim = pyganim.PygAnimation(frames,loop=True)
 

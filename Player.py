@@ -42,24 +42,29 @@ class Player:
         #allImages = pyganim.getImagesFromSpriteSheet('AD1.png', rects=rects)
         #frames = list(zip(allImages, [100] * len(allImages)))
 
-  
+        rects = [(1940,1250,260,160,),
+                (1650,1250,260,160,),
+                (1383,1250,260,160,)]
+
+
         allImages = pyganim.getImagesFromSpriteSheet('ADR.png', rects=rects)
         frames = list(zip(allImages,[100] * len(allImages)))
         self.FireLeft = pyganim.PygAnimation(frames)
         self.FireLeft.blit(self.screen,(x,y))  
-        rects = [(38,1250,256,160,),
-                 (293,1250,260,160,),
-                 (576,1250,250,160,),
-                                     ]
+        rects = [(12,1210,260,160,),
+                (302,1210,260,160,),
+                (569,1210,260,160,)]
+
+
 
         allImages = pyganim.getImagesFromSpriteSheet('AD.png', rects=rects)
         frames = list(zip(allImages,[150] * len(allImages)))
         self.FireRight = pyganim.PygAnimation(frames)
         self.FireRight.blit(self.screen,(x,y))  
 
-        rects = [(1940,1200,256,160,),
-                (1647,1200,260,160,),
-                (1410,1200,250,160,),]
+        #rects = [(1940,1200,256,160,),
+         #       (1647,1200,260,160,),
+         #       (1410,1200,250,160,),]
 
 
         allImages = pyganim.getImagesFromSpriteSheet('ADR.png', rects=rects)
@@ -94,8 +99,7 @@ class Player:
          (900, 218, 205, 125),
          (1121, 218, 200, 115),
          (1348, 218, 205, 140),
-         (1570, 218, 190, 212),
-                                ]
+         (1570, 218, 190, 212)]
         
 	allImages = pyganim.getImagesFromSpriteSheet('AD1.png', rects=rects)
 	frames = list(zip(allImages, [100] * len(allImages)))
@@ -106,8 +110,7 @@ class Player:
 	rects = [(1570, 218, 190 ,212),
          (1757, 218, 140, 150),
          (1910, 218, 125, 150),
-         (2055, 218, 105, 155),
-                                ]
+         (2055, 218, 105, 155)]
         
 
         allImages = pyganim.getImagesFromSpriteSheet('AD1.png', rects=rects)
@@ -119,7 +122,8 @@ class Player:
         rects = [(39, 1635, 135, 120),
                  (165, 1635, 135, 120),        
                  (312, 1635, 140, 120),
-                 (468, 1635, 190, 110),]
+                 (468, 1635, 190, 110)]
+
         allImages = pyganim.getImagesFromSpriteSheet('AD1.png', rects=rects)
         frames = list(zip(allImages, [100] * len(allImages)))
         self.StartLeftFly = pyganim.PygAnimation(frames,loop=False)
@@ -185,10 +189,11 @@ class Player:
 	self.StartRightFly.blit(self.screen,(x,y))
 	self.RightFly.blit(self.screen,(x,y))
 	self.StopRightFly.blit(self.screen,(x,y))
-        self.FireLeft.blit(self.screen,(x,y))
-        self.FireRight.blit(self.screen,(x,y))
+        self.FireLeft.blit(self.screen,(x-75,y))
+        self.FireRight.blit(self.screen,(x-75,y-40))
         self.oldx=self.x=x
         self.oldy=self.y=y
+        self.Rect=pygame.Rect(x-5,y-5,125,125)
     def stopAll(self):
         if self.StayLeft._state!=pyganim.STOPPED:
             self.StayLeft.stop()
