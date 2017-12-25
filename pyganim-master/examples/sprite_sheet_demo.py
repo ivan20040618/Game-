@@ -16,13 +16,13 @@ pygame.display.set_caption('Sprite Sheet Demo')
 
 # create the animation objects
 
-rects = [(38,1100,256,160,),
-        (293,1100,260,160,),
-        (576,1100,250,160,),
+rects = [(1940,1200,256,160,),
+        (1647,1200,260,160,),
+        (1410,1200,250,160,),
                                      ]
 
 
-allImages = pyganim.getImagesFromSpriteSheet('AD.png', rects=rects)
+allImages = pyganim.getImagesFromSpriteSheet('ADR.png', rects=rects)
 frames = list(zip(allImages, [300] * len(allImages)))
 
 dinoAnim = pyganim.PygAnimation(frames,loop=True)

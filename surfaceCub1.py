@@ -50,11 +50,11 @@ while done==False:
                 Player0.stopAll()#остновка всех анимаций
                 if  Player0.State=='StayRight':#cостояние игрока
                     Player0.State='FireRight'#состояние игрока
-                    Player0.FireLeft.play()#проигравание анимаций
+                    Player0.FireRight.play()#проигравание анимаций
                     print Player0.State
                 if  Player0.State=='LeftStay':#состояние игрока
                     Player0.State='FireLeft'#состояние игрока
-                    Player0.FireRight.play()#проигрование анимаций
+                    Player0.FireLeft.play()#проигрование анимаций
                     print "DFR"
                     print Player0.State
                     
@@ -104,9 +104,9 @@ while done==False:
                 #Player0.FireRight.stop()#остновка всех анимаций
                 #Player0.FireLeft.stop()#остновка всех анимаций
                 Player0.stopAll()
-              #  if Player0.State=='FireLeft':
-              #      Player0.StayRight.play()
-              #      Player0.State='StayLeft'
+                if Player0.State=='FireLeft':
+                    Player0.StayLeft.play()
+                    Player0.State='StayLeft'
                 if Player0.State=='FireRight':
                     Player0.StayRight.play()
                     Player0.State='StayRight'

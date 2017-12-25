@@ -38,37 +38,33 @@ class Player:
         frames = list(zip(allImages, [100] * len(allImages)))
 
 
-        rects = [(1917,1225, 90, 145)]
-        allImages = pyganim.getImagesFromSpriteSheet('AD1.png', rects=rects)
-        frames = list(zip(allImages, [100] * len(allImages)))
+        #rects = [(1917,1225, 90, 145)]
+        #allImages = pyganim.getImagesFromSpriteSheet('AD1.png', rects=rects)
+        #frames = list(zip(allImages, [100] * len(allImages)))
 
   
-        allImages = pyganim.getImagesFromSpriteSheet('AD.png', rects=rects)
+        allImages = pyganim.getImagesFromSpriteSheet('ADR.png', rects=rects)
         frames = list(zip(allImages,[100] * len(allImages)))
-        self.FireRight = pyganim.PygAnimation(frames)
-        self.FireRight.blit(self.screen,(x,y))  
+        self.FireLeft = pyganim.PygAnimation(frames)
+        self.FireLeft.blit(self.screen,(x,y))  
         rects = [(38,1250,256,160,),
                  (293,1250,260,160,),
                  (576,1250,250,160,),
                                      ]
 
-
-
-
         allImages = pyganim.getImagesFromSpriteSheet('AD.png', rects=rects)
         frames = list(zip(allImages,[150] * len(allImages)))
-        self.FireLeft = pyganim.PygAnimation(frames)
-        self.FireLeft.blit(self.screen,(x,y))  
+        self.FireRight = pyganim.PygAnimation(frames)
+        self.FireRight.blit(self.screen,(x,y))  
 
-        rects = [(2005,1400,190,198,),
-                 (1767,1400,220,205,),
-                 (1522,1400,220,150,),
-                                     ]
+        rects = [(1940,1200,256,160,),
+                (1647,1200,260,160,),
+                (1410,1200,250,160,),]
 
 
         allImages = pyganim.getImagesFromSpriteSheet('ADR.png', rects=rects)
         frames = list(zip(allImages, [100] * len(allImages)))
-        self.FlyFireLeft = pyganim.PygAnimation(frames,loop=True)
+        self.FlyFireLeft = pyganim.PygAnimation(frames)
         self.FlyFireLeft.blit(self.screen,(x,y))
 
         rects = [(2080, 18, 115, 115),
@@ -190,6 +186,7 @@ class Player:
 	self.RightFly.blit(self.screen,(x,y))
 	self.StopRightFly.blit(self.screen,(x,y))
         self.FireLeft.blit(self.screen,(x,y))
+        self.FireRight.blit(self.screen,(x,y))
         self.oldx=self.x=x
         self.oldy=self.y=y
     def stopAll(self):
@@ -211,3 +208,5 @@ class Player:
             self.StopRightFly.stop()
         if self.FireLeft._state!=pyganim.STOPPED:
             self.FireLeft.stop()
+        if self.FireRight._state!=pyganim.STOPPED:
+            self.FireRight.stop()
