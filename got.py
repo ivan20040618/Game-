@@ -5,6 +5,7 @@ import os
 import pygame 
 import math 
 import pyganim
+import time
 from Player import *#импорт библеотек 
 from bot import *
 
@@ -13,13 +14,23 @@ screen = pygame.display.set_mode(size)#создание окна
 
 pygame.init()
 clock = pygame.time.Clock()
-pygame.mixer.music.load('./ogg/background3.ogg')
-pygame.mixer.music.play()
+#pygame.mixer.music.play()
 done=False
 bgmap=pygame.image.load('map.png').convert()#приграды карты
 bg=pygame.image.load('grees.png').convert()#карта	
-Player0=Player(screen,445,500,bgmap)#1080,125
+Player0=Player(screen,445,400,bgmap)#1080,125
 
+pygame.mixer.music.load('./ogg/background.ogg')
+pygame.mixer.music.play()
+zastavka=pygame.image.load('zastavka.png').convert()
+screen.blit(zastavka,(0,0))
+pygame.display.flip()
+pausa=False
+while pausa==False:
+    clock.tick(1)
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            pausa=True   
 Skeleton=[]
 Skeleton.append(Bot(screen,225,500,bgmap))
 Skeleton.append(Bot(screen,540,190,bgmap))
@@ -38,12 +49,17 @@ if  pygame.joystick.get_count()!=0:
 else:	
     print "Connect joystick!"
 x=y=0
-
+pygame.mixer.music.load('./ogg/background3.ogg')
 while done==False:
+    if not pygame.mixer.music.get_busy():
+        pygame.mixer.music.play()
     for event in pygame.event.get():#оброботка событей
         if event.type == pygame.QUIT:
                     done=True
-        if event.type == pygame.KEYDOWN:#оброботка событей когда клавиша опущена
+        if event.type == pygame.KEYDOWN:#оброботка событей когда клавиша опущена 
+            if event.key == pygame.K_ESCAPE:
+                done=True
+
             if event.key == pygame.K_LEFT:#клавиша влево
                 
                 x=-1#двежение влево
@@ -53,13 +69,14 @@ while done==False:
                 Player0.State='StartLeftFly'#состояние игрока
             if event.key == pygame.K_b:#клавиша b (атака)
 
+                Player0.stopAll()#остновка всех анимаций
                 for i in range(len(Skeleton)):
                     
                     if Player0.Rect.colliderect(pygame.Rect(Skeleton[i].x,Skeleton[i].y,Skeleton[i].width,Skeleton[i].height)):
                         
                         if Skeleton[i].NoDie==1:
                             Skeleton[i].NoDie=0
-
+                               
                 Player0.stopAll()#остновка всех анимаций
                 if  Player0.State.find('Right')!=-1:#cостояние игрока
                     Player0.State='FireRight'#состояние игрока
@@ -128,6 +145,7 @@ while done==False:
                         Player0.StopLeftFly.play()
                         
                         Player0.State='StopLeftFly'
+
                     if Player0.State.find('Right')!=-1:
                         Player0.stopAll()#остновка всех анимаций
                         Player0.StopRightFly.play()
@@ -166,4 +184,18 @@ while done==False:
     Player0.draw(Player0.x,Player0.y)
     pygame.display.flip()
     clock.tick(60)
-    
+
+
+end=pygame.image.load('end.png').convert()
+screen.blit(end,(0,0))
+pygame.display.flip()
+pausa=False
+pygame.mixer.music.load('./ogg/Poxoronay.ogg')
+pygame.mixer.music.play()
+while pausa==False:
+    clock.tick(1)
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            pausa=True
+            clock.tick(1)
+

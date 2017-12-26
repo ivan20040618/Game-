@@ -140,10 +140,13 @@ class Player:
     def draw(self,x,y):
         if self.State.find('Fire')!=-1:
            self.Fire.play()
-        if self.State.find('Fly')!=-1:
-           self.Fly.play()
+        if (self.State.find('Fly')!=-1):
+#and (self.Fly.mixer.get_busy()!=True):
+           self.Fly.play(fade_ms=0)
         if self.State.find('Fly')==-1:
-           self.Fly.stop()
+           #self.Fly.stop()
+           self.Fly.fadeout(350)
+
         width=100
         height=100
         kx=0
