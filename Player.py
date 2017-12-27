@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
 import pygame
 import pyganim
 
 class Player:
     State=''
     def __init__(self,screen,x,y,bgmap):
+#Загружаем озвучку
         self.Fire=pygame.mixer.Sound("./ogg/Fire1.ogg")
         self.Fly=pygame.mixer.Sound("./ogg/Fly3.ogg")
         self.bgmap=bgmap
@@ -12,6 +14,7 @@ class Player:
         self.oldy=y
         self.x=x
         self.y=y
+#Нарезаем спрайты дракона
         rects = [(34, 18, 115, 116),
         (147, 18, 115, 116),        
         (262, 18, 115, 116),
@@ -22,11 +25,11 @@ class Player:
         (816, 18, 115, 116),]
         
         self.State="StayRight"
-        allImages = pyganim.getImagesFromSpriteSheet('AD.png', rects=rects)
-        frames = list(zip(allImages, [100] * len(allImages)))
-        self.StayRight= pyganim.PygAnimation(frames)
-        self.StayRight.play() 
-        self.StayRight.blit(self.screen, (x,y))
+        allImages = pyganim.getImagesFromSpriteSheet('AD.png', rects=rects)#Создает массив спрайтов allImage
+        frames = list(zip(allImages, [100] * len(allImages)))#Конвертируем массив allImage во фрэймы с частотой показа 100мс
+        self.StayRight= pyganim.PygAnimation(frames)#Создаем объект анимации
+        self.StayRight.play()#Запускаем анимацию на выполнение
+        self.StayRight.blit(self.screen, (x,y))#Отрисовываем анимацию
         
         rects = [(1025,1400, 137, 176),
                 (1185, 1400, 175, 184),        
@@ -138,20 +141,18 @@ class Player:
 
 
     def draw(self,x,y):
-        if self.State.find('Fire')!=-1:
+        if self.State.find('Fire')!=-1:#Звук огня
            self.Fire.play()
-        if (self.State.find('Fly')!=-1):
-#and (self.Fly.mixer.get_busy()!=True):
-           self.Fly.play(fade_ms=0)
-        if self.State.find('Fly')==-1:
-           #self.Fly.stop()
+        if (self.State.find('Fly')!=-1):#Звук полета
+           self.Fly.play()
+        if self.State.find('Fly')==-1:#Останавливаем звук полета
            self.Fly.fadeout(350)
-
+#Накладываем ограничения что бы дракон не пролетал сквозь предметы 
+#и не вылетал за игровое поле
         width=100
         height=100
         kx=0
         ky=45
-        
         xc=xc2=x
         yc=yc2=y
         #left

@@ -36,15 +36,15 @@ class Bot:
         self.SkeletStay = pyganim.PygAnimation(frames,loop=True)
         self.SkeletStay.play()     
         
-    def enemy(self,x,y,bgmap):
+    def enemy(self,x,y):
         if self.NoDie==1:
-            pygame.draw.rect(bgmap,(255,0,0),(x+15,y+25,self.width-15,self.height-20))
+            pygame.draw.rect(self.bgmap,(255,0,0),(x+15,y+25,self.width-15,self.height-20))
         if self.NoDie==0:
             
             self.SkeletStay.stop()
             self.SkeletDie.play()
             self.Die.play()
-            pygame.draw.rect(bgmap,(255,255,255),(x+15,y+25,self.width-15,self.height-20))
+            pygame.draw.rect(self.bgmap,(255,255,255),(x+15,y+25,self.width-15,self.height-20))
             #self.SkeletDie.blit(self.screen,(x,y))
             self.NoDie=2
 
