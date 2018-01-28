@@ -25,6 +25,7 @@ pygame.mixer.music.play()
 zastavka=pygame.image.load('zastavka.png').convert()
 screen.blit(zastavka,(0,0))
 pygame.display.flip()
+clock.tick
 pausa=False
 
 while pausa==False:
