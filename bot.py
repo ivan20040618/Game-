@@ -38,7 +38,7 @@ class Bot:
         
     def enemy(self,x,y):
         if self.NoDie==1:
-            pygame.draw.rect(self.bgmap,(255,0,0),(x+15,y+25,self.width-15,self.height-20))
+            pygame.draw.rect(self.bgmap,(255,0,0),(x+25,y+25,self.width-35,self.height-20))
         if self.NoDie==0:
             
             self.SkeletStay.stop()

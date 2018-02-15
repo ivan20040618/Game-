@@ -4,6 +4,7 @@ import sys
 import os
 import pygame 
 import math 
+import random 
 import pyganim
 import time
 from Player import *#импорт библеотек 
@@ -135,6 +136,16 @@ while done==False:
                     Player0.State='FireLeft'#состояние игрока
                     Player0.FireLeft.play()#проигрование анимаций
                     
+            if event.key == pygame.K_SPACE:#клавиша пробел все по новой
+
+                Skeleton[:]=[]
+                
+                Skeleton.append(Bot(screen,225+random.randrange(-30, 30, 1) ,500+random.randrange(-30, 30, 1) ,bgmap))
+                Skeleton.append(Bot(screen,540+random.randrange(-30, 30, 1) ,190+random.randrange(-30, 30, 1) ,bgmap))
+                Skeleton.append(Bot(screen,340+random.randrange(-30, 30, 1) ,200+random.randrange(-30, 30, 1) ,bgmap))
+                Skeleton.append(Bot(screen,540+random.randrange(-30, 30, 1) ,230+random.randrange(-30, 30, 1) ,bgmap))
+                Skeleton.append(Bot(screen,40+random.randrange(-30, 30, 1) ,260+random.randrange(-30, 30, 1) ,bgmap))
+
             if event.key == pygame.K_RIGHT:#клавиша вправо
                 x=1#двежение вправо
                 Player0.stopAll()#остновка всех анимаций
