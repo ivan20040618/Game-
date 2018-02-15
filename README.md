@@ -10,4 +10,7 @@
 PyGame https://www.pygame.org/
 PyGAnim https://github.com/asweigart/pyganim
 
+Управление:
+"стрелки" - задают движение дракона "B" - огонь "ПРОБЕЛ" - воскрешение скелетов
+
 
